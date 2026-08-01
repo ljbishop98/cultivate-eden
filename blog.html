@@ -38,7 +38,16 @@
 
 <section>
   <div class="container">
-    <div id="blog-post-list" class="post-list">
+    <div class="blog-toolbar">
+      <div class="blog-search">
+        <input type="search" id="blog-search-input" placeholder="Search posts…" aria-label="Search posts">
+      </div>
+      <div class="blog-view-toggle" role="group" aria-label="Post display style">
+        <button type="button" id="view-tiles-btn" class="view-toggle-btn">Tiles</button>
+        <button type="button" id="view-list-btn" class="view-toggle-btn">List</button>
+      </div>
+    </div>
+    <div id="blog-post-list" class="post-grid">
       <p>Loading posts…</p>
     </div>
   </div>
@@ -57,6 +66,108 @@
 <script>
   (function () {
     var listEl = document.getElementById("blog-post-list");
+    var searchInput = document.getElementById("blog-search-input");
+    var tilesBtn = document.getElementById("view-tiles-btn");
+    var listBtn = document.getElementById("view-list-btn");
+
+    var VIEW_KEY = "cultivateEdenBlogView";
+    var allPosts = [];
+    var isLoading = true;
+    var currentView = localStorage.getItem(VIEW_KEY) || "tiles";
+
+    function setView(view) {
+      currentView = view;
+      localStorage.setItem(VIEW_KEY, view);
+      tilesBtn.setAttribute("aria-pressed", String(view === "tiles"));
+      listBtn.setAttribute("aria-pressed", String(view === "list"));
+      listEl.className = view === "tiles" ? "post-grid" : "post-list";
+      render();
+    }
+
+    tilesBtn.addEventListener("click", function () { setView("tiles"); });
+    listBtn.addEventListener("click", function () { setView("list"); });
+
+    searchInput.addEventListener("input", function () { render(); });
+
+    function fadeInResults() {
+      window.requestAnimationFrame(function () {
+        window.setTimeout(function () {
+          listEl.querySelectorAll(".reveal").forEach(function (el) {
+            el.classList.add("in-view");
+          });
+        }, 30);
+      });
+    }
+
+    function matchesSearch(post, query) {
+      if (!query) return true;
+      var haystack = (post.title + " " + post.excerpt + " " + post.body).toLowerCase();
+      return haystack.indexOf(query) !== -1;
+    }
+
+    function tileMarkup(post, i) {
+      var image = post.image
+        ? '<img class="post-tile-image" src="' + post.image + '" alt="" loading="lazy">'
+        : '<div class="post-tile-image placeholder">Cultivate Eden</div>';
+      return (
+        '<div class="post-tile reveal' + (i < 6 ? " reveal-delay-" + ((i % 3) + 1) : "") + '">' +
+        '<a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' + image + "</a>" +
+        '<div class="post-tile-body">' +
+        '<span class="post-date">' + window.CultivateBlog.formatDate(post.date) + "</span>" +
+        '<h3><a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' + post.title + "</a></h3>" +
+        "<p>" + post.excerpt + "</p>" +
+        '<p><a href="post.html?slug=' + encodeURIComponent(post.slug) + '">Read the full post &rarr;</a></p>' +
+        "</div></div>"
+      );
+    }
+
+    function listMarkup(post, i) {
+      var thumb = post.image
+        ? '<a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' +
+          '<img class="post-preview-image" src="' + post.image + '" alt="" loading="lazy"></a>'
+        : "";
+      return (
+        '<div class="post-preview reveal' + (i < 3 ? " reveal-delay-" + (i + 1) : "") + '">' +
+        thumb +
+        '<span class="post-date">' + window.CultivateBlog.formatDate(post.date) + "</span>" +
+        '<h3><a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' + post.title + "</a></h3>" +
+        "<p>" + post.excerpt + "</p>" +
+        '<p><a href="post.html?slug=' + encodeURIComponent(post.slug) + '">Read the full post &rarr;</a></p>' +
+        "</div>"
+      );
+    }
+
+    function render() {
+      if (isLoading) {
+        listEl.innerHTML = "<p>Loading posts…</p>";
+        return;
+      }
+
+      var query = searchInput.value.trim().toLowerCase();
+      var posts = allPosts.filter(function (p) { return matchesSearch(p, query); });
+
+      if (!allPosts.length) {
+        listEl.innerHTML =
+          '<div class="info-box">' +
+          "<h3 style=\"margin-bottom: 10px;\">No posts yet</h3>" +
+          '<p>New writing will show up here as soon as it\'s published from <a href="/admin/">/admin</a>.</p>' +
+          "</div>";
+        return;
+      }
+
+      if (!posts.length) {
+        listEl.innerHTML =
+          '<div class="info-box">' +
+          "<h3 style=\"margin-bottom: 10px;\">No posts match “" + searchInput.value + "”</h3>" +
+          "<p>Try a different search term.</p>" +
+          "</div>";
+        return;
+      }
+
+      var markupFn = currentView === "tiles" ? tileMarkup : listMarkup;
+      listEl.innerHTML = posts.map(markupFn).join("");
+      fadeInResults();
+    }
 
     if (!window.CultivateBlog || !window.CultivateBlog.isConfigured()) {
       listEl.innerHTML =
@@ -67,46 +178,16 @@
       return;
     }
 
+    setView(currentView);
+
     window.CultivateBlog.fetchAllPosts()
       .then(function (posts) {
-        if (!posts.length) {
-          listEl.innerHTML =
-            '<div class="info-box">' +
-            "<h3 style=\"margin-bottom: 10px;\">No posts yet</h3>" +
-            '<p>New writing will show up here as soon as it\'s published from <a href="/admin/">/admin</a>.</p>' +
-            "</div>";
-          return;
-        }
-
-        listEl.innerHTML = posts
-          .map(function (post, i) {
-            var thumb = post.image
-              ? '<a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' +
-                '<img class="post-preview-image" src="' + post.image + '" alt="" loading="lazy"></a>'
-              : "";
-            return (
-              '<div class="post-preview reveal' + (i < 3 ? " reveal-delay-" + (i + 1) : "") + '">' +
-              thumb +
-              '<span class="post-date">' + window.CultivateBlog.formatDate(post.date) + "</span>" +
-              '<h3><a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' + post.title + "</a></h3>" +
-              "<p>" + post.excerpt + "</p>" +
-              '<p><a href="post.html?slug=' + encodeURIComponent(post.slug) + '">Read the full post &rarr;</a></p>' +
-              "</div>"
-            );
-          })
-          .join("");
-
-        // Fade the freshly inserted posts in (same .reveal utility used elsewhere on
-        // the site) — a short delay lets the browser paint the starting state first.
-        window.requestAnimationFrame(function () {
-          window.setTimeout(function () {
-            listEl.querySelectorAll(".reveal").forEach(function (el) {
-              el.classList.add("in-view");
-            });
-          }, 30);
-        });
+        allPosts = posts;
+        isLoading = false;
+        render();
       })
       .catch(function (err) {
+        isLoading = false;
         listEl.innerHTML =
           '<div class="info-box">' +
           "<h3 style=\"margin-bottom: 10px;\">Couldn't load posts</h3>" +
