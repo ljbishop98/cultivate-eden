@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="post-title-tag">Post — Cultivate Eden</title>
+<meta name="description" content="A post from the Cultivate Eden blog.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="brand">
+      <span class="brand-name">Cultivate Eden</span>
+      <span class="brand-tag">#CultivateEden</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="cultivate-nights.html">Cultivate Nights</a>
+      <a href="shabbat-series.html">Shabbat Series</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding-top: 60px;">
+  <div class="container">
+    <p><a href="blog.html">&larr; Back to Blog</a></p>
+    <div id="post-content">
+      <p style="margin-top: 24px;">Loading post…</p>
+    </div>
+    <p style="margin-top: 40px;"><a href="blog.html" class="btn btn-outline" style="background: var(--deep-green); border: none;">&larr; Back to Blog</a></p>
+  </div>
+</section>
+
+<footer class="site-footer" style="margin-top: 60px;">
+  <div class="container">
+    <span class="brand-name">Cultivate Eden</span>
+    <span class="foot-tag">#CultivateEden</span>
+    <p style="margin-top: 18px; color: #cfd6c8;">&copy; 2026 Cultivate Eden. Pleading with all to be reconciled to Eden.</p>
+  </div>
+</footer>
+
+<script src="assets/site-config.js"></script>
+<script src="assets/blog.js"></script>
+<script>
+  (function () {
+    var contentEl = document.getElementById("post-content");
+    var params = new URLSearchParams(window.location.search);
+    var slug = params.get("slug");
+
+    function showError(message) {
+      contentEl.innerHTML = '<div class="info-box"><h3 style="margin-bottom: 10px;">' + message + "</h3></div>";
+    }
+
+    if (!slug) {
+      showError("No post specified.");
+      return;
+    }
+
+    if (!window.CultivateBlog || !window.CultivateBlog.isConfigured()) {
+      showError("The blog isn't fully set up yet — see the README for the two-line fix in assets/site-config.js.");
+      return;
+    }
+
+    window.CultivateBlog.fetchPost(slug)
+      .then(function (post) {
+        document.title = post.title + " — Cultivate Eden";
+        document.getElementById("post-title-tag").textContent = post.title + " — Cultivate Eden";
+
+        contentEl.innerHTML =
+          '<p class="post-meta" style="margin-top: 24px;">' + window.CultivateBlog.formatDate(post.date) + "</p>" +
+          "<h1>" + post.title + "</h1>" +
+          '<article class="post-body" style="margin-top: 24px;">' + window.CultivateBlog.renderMarkdown(post.body) + "</article>";
+      })
+      .catch(function (err) {
+        showError(err && err.message ? err.message : "Couldn't load this post.");
+      });
+  })();
+</script>
+
+</body>
+</html>

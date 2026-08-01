@@ -1,0 +1,624 @@
+/* Cultivate Eden — shared styles */
+
+:root {
+  --deep-green: #24402e;
+  --moss-green: #3f5f45;
+  --terracotta: #b5652f;
+  --gold: #c69a3b;
+  --cream: #f6f1e6;
+  --cream-dark: #ece3d0;
+  --ink: #2a271f;
+  --ink-soft: #5a5346;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.7;
+  font-size: 17px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  color: var(--deep-green);
+  font-weight: 600;
+  line-height: 1.15;
+  margin-top: 0;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.1rem; }
+h3 { font-size: 1.5rem; }
+
+p { color: var(--ink-soft); }
+
+a { color: var(--terracotta); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Header / Nav ---------- */
+
+header.site-header {
+  background: var(--deep-green);
+  padding: 18px 0;
+}
+
+.nav-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.brand:hover { text-decoration: none; }
+
+.brand .brand-name {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+}
+
+.brand .brand-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 2px;
+}
+
+nav.site-nav {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+nav.site-nav a {
+  color: var(--cream);
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.88;
+}
+
+nav.site-nav a:hover,
+nav.site-nav a.active {
+  opacity: 1;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  background:
+    radial-gradient(ellipse at top left, rgba(198,154,59,0.18), transparent 55%),
+    linear-gradient(180deg, var(--deep-green) 0%, #1c3323 100%);
+  color: var(--cream);
+  padding: 100px 0 90px;
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero .container { max-width: 720px; position: relative; z-index: 2; }
+
+/* ---------- Hero pin (Apple-style sticky/pinned hero — homepage only) ---------- */
+/* Scoped under .hero-pin so the other pages' plain .hero header bands are untouched. */
+
+.hero-pin {
+  position: relative;
+  height: 180vh;
+}
+
+.hero-pin .hero {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.hero-pin .hero .container {
+  padding: 0 24px;
+  will-change: opacity, transform;
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 36px;
+  border: 1px solid rgba(246,241,230,0.55);
+  border-radius: 12px;
+}
+
+.scroll-cue span {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: scroll-cue-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes scroll-cue-dot {
+  0% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 0; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue span { animation: none; }
+}
+
+/* ---------- Scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(36px) scale(0.98);
+  transition: opacity 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              transform 0.9s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+
+/* ---------- Hero video background ---------- */
+
+.hero-video-bg {
+  position: absolute;
+  top: -18%;
+  left: 0;
+  right: 0;
+  height: 136%;
+  z-index: 0;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.hero-video-bg video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.hero-video-bg video.is-visible {
+  opacity: 1;
+}
+
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at top left, rgba(198,154,59,0.14), transparent 55%),
+    linear-gradient(180deg, rgba(28,51,35,0.82) 0%, rgba(18,34,23,0.88) 100%);
+}
+
+.hero h1 {
+  color: var(--cream);
+  margin-bottom: 18px;
+}
+
+.hero .verse {
+  font-style: italic;
+  color: var(--gold);
+  font-size: 1.05rem;
+  margin-bottom: 26px;
+}
+
+.hero p.lead {
+  color: #e4ddc9;
+  font-size: 1.15rem;
+  margin-bottom: 34px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-block;
+  padding: 13px 30px;
+  border-radius: 3px;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.btn:hover { text-decoration: none; opacity: 0.88; }
+
+.btn-primary {
+  background: var(--terracotta);
+  color: var(--cream);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(246,241,230,0.5);
+}
+
+/* ---------- Sections ---------- */
+
+section {
+  padding: 72px 0;
+  background: var(--cream);
+  position: relative;
+}
+
+section.alt {
+  background: var(--cream-dark);
+}
+
+/* ---------- Stacking sections ---------- */
+/* Each "screen" sticks at the top and holds a full viewport of room, so the next
+   section — being later in the page and opaque — visually slides up and over it as
+   you scroll, the same layered-card motion as the hero-to-Message handoff above. */
+
+.stack-section {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .stack-section {
+    /* Scroll-jacking effects get janky on small screens with a moving address bar —
+       fall back to normal, non-sticky flow below 640px. */
+    position: static;
+    min-height: 0;
+    display: block;
+  }
+}
+
+.section-label {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  color: var(--terracotta);
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.divider {
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  border: none;
+  margin: 28px 0;
+}
+
+.divider.center { margin: 28px auto; }
+
+blockquote {
+  border-left: 3px solid var(--gold);
+  margin: 28px 0;
+  padding: 4px 0 4px 24px;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--deep-green);
+  font-style: italic;
+}
+
+/* ---------- Cards ---------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 26px;
+  margin-top: 40px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--cream-dark);
+  border-radius: 6px;
+  padding: 30px 26px;
+}
+
+.card h3 { margin-bottom: 10px; }
+
+.card p { margin-bottom: 0; font-size: 0.96rem; }
+
+/* ---------- Info box (placeholders) ---------- */
+
+.info-box {
+  background: #fff;
+  border: 1px dashed var(--gold);
+  border-radius: 6px;
+  padding: 32px;
+  margin-top: 30px;
+}
+
+.info-box .info-row {
+  display: flex;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.info-box .info-row:last-child { border-bottom: none; }
+
+.info-row .label {
+  min-width: 110px;
+  font-weight: 600;
+  color: var(--deep-green);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  padding-top: 3px;
+}
+
+.info-row .value { color: var(--ink-soft); }
+
+.note {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-top: 18px;
+}
+
+/* ---------- Blog ---------- */
+
+.post-list { margin-top: 20px; }
+
+.post-preview {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.post-preview:first-child { padding-top: 0; }
+
+.post-preview .post-date {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--terracotta);
+}
+
+.post-preview h3 { margin: 8px 0 10px; }
+
+.post-preview h3 a { color: var(--deep-green); }
+
+article.post-body {
+  font-family: var(--serif);
+  font-size: 1.18rem;
+  color: var(--ink);
+}
+
+article.post-body p { color: var(--ink); margin-bottom: 22px; }
+
+.post-meta {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--terracotta);
+  margin-bottom: 14px;
+}
+
+.hashtag {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--moss-green);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Spots badge ---------- */
+
+.spots-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--gold);
+  border-radius: 40px;
+  padding: 10px 22px;
+  margin-top: 10px;
+}
+
+.spots-badge .spots-count {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--terracotta);
+}
+
+.spots-badge .spots-text {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Forms ---------- */
+
+.signup-form {
+  margin-top: 30px;
+  background: #fff;
+  border: 1px solid var(--cream-dark);
+  border-radius: 6px;
+  padding: 32px;
+}
+
+.signup-form .form-row {
+  margin-bottom: 20px;
+}
+
+.signup-form .form-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.signup-form label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--deep-green);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.signup-form input,
+.signup-form textarea {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1px solid var(--cream-dark);
+  border-radius: 4px;
+  padding: 12px 14px;
+}
+
+.signup-form input:focus,
+.signup-form textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.signup-form textarea { resize: vertical; }
+
+.signup-form .form-actions {
+  margin-top: 28px;
+}
+
+.signup-form button {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--terracotta);
+  color: var(--cream);
+  border: none;
+  border-radius: 3px;
+  padding: 13px 30px;
+  cursor: pointer;
+}
+
+.signup-form button:hover { opacity: 0.88; }
+
+.form-note {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-top: 14px;
+}
+
+/* ---------- Contact ---------- */
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 26px;
+}
+
+.contact-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--cream-dark);
+  font-size: 1.02rem;
+}
+
+.contact-list .label {
+  color: var(--deep-green);
+  font-weight: 600;
+  display: inline-block;
+  min-width: 90px;
+}
+
+/* ---------- Footer ---------- */
+
+footer.site-footer {
+  background: var(--deep-green);
+  color: #cfd6c8;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+footer.site-footer .brand-name {
+  font-family: var(--serif);
+  color: var(--cream);
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+footer.site-footer .foot-tag {
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .hero { padding: 70px 0 60px; }
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.7rem; }
+  .nav-wrap { flex-direction: column; align-items: flex-start; gap: 14px; }
+  nav.site-nav { gap: 18px; }
+  section { padding: 54px 0; }
+}

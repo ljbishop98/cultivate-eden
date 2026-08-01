@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shabbat Series — Cultivate Eden</title>
+<meta name="description" content="An 8-10 week Friday night series rediscovering Sabbath as part of God's original design for rest and communion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="brand">
+      <span class="brand-name">Cultivate Eden</span>
+      <span class="brand-tag">#CultivateEden</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="cultivate-nights.html">Cultivate Nights</a>
+      <a href="shabbat-series.html" class="active">Shabbat Series</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="padding: 70px 0 60px;">
+  <div class="container">
+    <span class="section-label" style="color: var(--gold);">A Friday Night Series</span>
+    <h1>The Shabbat Series</h1>
+    <p class="verse">"And on the seventh day God ended his work which he had made; and he rested on the seventh day from all his work." — Genesis 2:2</p>
+    <p class="lead">Rest was never an afterthought — it was part of God's original design, woven into creation itself alongside the garden He gave us to cultivate. For 8-10 weeks, we're gathering each Friday night to slow down, unlearn the hurry, and practice Sabbath together.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="section-label">Why Sabbath</span>
+    <h2>Rest was part of the design</h2>
+    <p>Before sin ever entered the story, God had already built rhythm into creation: six days of work, and a seventh set apart to rest, delight, and be present with Him. Sabbath wasn't a rule added later — it was woven into Eden from the start, the same way communion was.</p>
+    <p>Just as Adam was given the garden to cultivate, we've been given rhythms of rest to steward. The Shabbat Series is our way of reclaiming that rhythm — not as a legal requirement, but as an invitation back to the pace God designed us for.</p>
+    <blockquote>Sabbath isn't the absence of work. It's the presence of God, unhurried.</blockquote>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <span class="section-label">What to Expect</span>
+    <h2>Friday Nights, 8-10 Weeks</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Weekly Rhythm</h3>
+        <p>We gather every Friday evening for a dedicated season — a steady rhythm rather than a one-off event.</p>
+      </div>
+      <div class="card">
+        <h3>Worship &amp; Rest</h3>
+        <p>Unhurried worship, teaching on Sabbath and rest, and space to simply be still before God.</p>
+      </div>
+      <div class="card">
+        <h3>Shared Table</h3>
+        <p>Fellowship around food and conversation, practicing the delight Sabbath was always meant to hold.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="section-label">Series Details</span>
+    <h2>Save Your Spot</h2>
+
+    <div class="spots-badge">
+      <span class="spots-count">25 of 25</span>
+      <span class="spots-text">spots available</span>
+    </div>
+    <p class="note"><!-- Update the numbers in the .spots-badge above by hand as sign-ups come in. --> Spots are limited to keep the series intimate. This number is updated by hand as sign-ups come in — check back if the series shows as full.</p>
+
+    <div class="info-box">
+      <div class="info-row">
+        <span class="label">When</span>
+        <span class="value">Friday nights, weekly &middot; 8-10 week series &middot; start date coming soon</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Where</span>
+        <span class="value">Details coming soon</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Who</span>
+        <span class="value">Open to anyone wanting to slow down and pursue God together</span>
+      </div>
+    </div>
+
+    <form class="signup-form" onsubmit="return submitShabbatSignup(event)">
+      <div class="form-row">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-row">
+        <label for="attending">Number Attending</label>
+        <input type="number" id="attending" name="attending" min="1" value="1" required>
+      </div>
+      <div class="form-row">
+        <label for="message">Message (optional)</label>
+        <textarea id="message" name="message" rows="3" placeholder="Questions, dietary needs, anything else we should know"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit">Reserve My Spot</button>
+      </div>
+    </form>
+    <p class="form-note">Clicking "Reserve My Spot" opens your email app with the details filled in, sent to hello@cultivateeden.org (placeholder — update to your real address). We'll confirm your spot by reply.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="brand-name">Cultivate Eden</span>
+    <span class="foot-tag">#CultivateEden</span>
+    <p style="margin-top: 18px; color: #cfd6c8;">&copy; 2026 Cultivate Eden. Pleading with all to be reconciled to Eden.</p>
+  </div>
+</footer>
+
+<script>
+function submitShabbatSignup(e) {
+  e.preventDefault();
+  var f = e.target;
+  var subject = encodeURIComponent('Shabbat Series Sign-Up');
+  var body =
+    'Name: ' + f.name.value +
+    '\nEmail: ' + f.email.value +
+    '\nNumber Attending: ' + f.attending.value +
+    '\nMessage: ' + f.message.value;
+  window.location.href = 'mailto:hello@cultivateeden.org?subject=' + subject + '&body=' + encodeURIComponent(body);
+  return false;
+}
+</script>
+
+</body>
+</html>

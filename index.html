@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cultivate Eden — A Return to Communion with God</title>
+<meta name="description" content="Cultivate Eden is a ministry inviting people back into fellowship with God through the message of Eden, redemption, and communion. Join us for Cultivate Nights.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<!-- Handles the login link in Netlify Identity invite/reset emails, which land
+     back on the homepage before redirecting into /admin. -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="brand">
+      <span class="brand-name">Cultivate Eden</span>
+      <span class="brand-tag">#CultivateEden</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="cultivate-nights.html">Cultivate Nights</a>
+      <a href="shabbat-series.html">Shabbat Series</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero-pin">
+  <section class="hero">
+    <div class="hero-video-bg">
+      <video id="heroVideo" autoplay muted playsinline preload="auto"></video>
+    </div>
+    <div class="hero-video-overlay"></div>
+    <div class="container">
+      <span class="section-label" style="color: var(--gold);">A Ministry of Return</span>
+      <h1>Cultivate Eden</h1>
+      <p class="verse">"And the LORD God took the man, and put him into the garden of Eden to dress it and to keep it." — Genesis 2:15</p>
+      <p class="lead">Eden was never just a garden. It was the place where God met with man — where fellowship, intimacy, and peace with the Father were the air we breathed. We believe God is still calling His people back to that place of communion. We exist to cultivate it.</p>
+      <div class="hero-actions">
+        <a href="cultivate-nights.html" class="btn btn-primary">Join a Cultivate Night</a>
+        <a href="about.html" class="btn btn-outline">Read Our Message</a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span></span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="stack-section">
+  <div class="container reveal">
+    <span class="section-label">The Message</span>
+    <h2>Not a garden. A meeting place.</h2>
+    <p>In the beginning, God created the heavens and the earth, and on the sixth day, He made mankind in His own image and likeness. Then He planted a garden — Eden, meaning pleasure — and placed man there to cultivate and keep it.</p>
+    <p>To Adam and Eve, this was more than soil and trees. It was where God was not known merely as Creator, but as Father. A place of harmony, intimacy, and fellowship, where sin had no foothold and fear had no name. Adam's task was never only agricultural — he was tending a place where humanity had communion with its Maker.</p>
+    <blockquote>Fellowship. Communion. Peace with God. Delight. This is what Eden represented — and it's what God is calling us back to.</blockquote>
+    <p>We know how the story continues. The serpent deceived Adam and Eve, and disobedience severed that communion. But separation was never God's final word. In mercy, He set a plan of redemption, reconciliation, and restoration in motion — to bring us back to the place Adam and Eve knew before the fall.</p>
+    <p>God has reconciled us and brought us back into fellowship with Him. Now He calls us to steward that place of intimacy — cultivating it, keeping it, and inviting others to be reconciled to Eden.</p>
+    <p><a href="about.html">Read the full message &rarr;</a></p>
+  </div>
+</section>
+
+<section class="alt stack-section">
+  <div class="container reveal">
+    <span class="section-label">Gatherings</span>
+    <h2>Ways to Gather With Us</h2>
+    <p>Cultivating Eden isn't something we do alone. Here are two ways to practice communion with God alongside our community.</p>
+    <div class="card-grid" style="margin-top: 40px;">
+      <div class="card reveal reveal-delay-1">
+        <h3>Cultivate Nights</h3>
+        <p>Regular gatherings for worship, teaching, and fellowship — practicing the communion Eden represents.</p>
+        <p style="margin-top: 18px;"><a href="cultivate-nights.html">See Details &rarr;</a></p>
+      </div>
+      <div class="card reveal reveal-delay-2">
+        <h3>Shabbat Series</h3>
+        <p>An 8-10 week Friday night series rediscovering Sabbath rest as part of God's original design.</p>
+        <p style="margin-top: 18px;"><a href="shabbat-series.html">See Details &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="brand-name">Cultivate Eden</span>
+    <span class="foot-tag">#CultivateEden</span>
+    <p style="margin-top: 18px; color: #cfd6c8;">&copy; 2026 Cultivate Eden. Pleading with all to be reconciled to Eden.</p>
+  </div>
+</footer>
+
+<script>
+  // Rotating hero background videos — green / forest / nature clips.
+  // To add, remove, or swap clips, just edit this array.
+  var heroClips = [
+    "https://cdn.pixabay.com/video/2024/03/08/203449-921267347_large.mp4",
+    "https://cdn.pixabay.com/video/2025/06/24/287510_large.mp4",
+    "https://cdn.pixabay.com/video/2023/11/19/189813-887078786_large.mp4",
+    "https://cdn.pixabay.com/video/2020/09/15/49981-459802291_large.mp4",
+    "https://cdn.pixabay.com/video/2024/05/12/211641_large.mp4"
+  ];
+
+  (function () {
+    var video = document.getElementById("heroVideo");
+    if (!video) return;
+
+    var index = 0;
+
+    function playClip(i) {
+      video.classList.remove("is-visible");
+      window.setTimeout(function () {
+        video.src = heroClips[i];
+        video.load();
+        video.play().catch(function () {
+          // Autoplay may be blocked until the user interacts with the page — that's fine,
+          // the green gradient background still shows underneath.
+        });
+      }, 300);
+    }
+
+    video.addEventListener("loadeddata", function () {
+      video.classList.add("is-visible");
+    });
+
+    video.addEventListener("ended", function () {
+      index = (index + 1) % heroClips.length;
+      playClip(index);
+    });
+
+    // If a clip fails to load (dead link, network hiccup), skip to the next one
+    // instead of leaving the hero stuck on the plain gradient.
+    video.addEventListener("error", function () {
+      index = (index + 1) % heroClips.length;
+      if (index !== 0) { playClip(index); }
+    });
+
+    playClip(index);
+  })();
+
+  // Apple-style pinned hero: the hero stays fixed full-screen while you scroll through
+  // an extra-tall wrapper (.hero-pin). As that scroll "budget" is used up, the headline
+  // fades/lifts/shrinks and the video slowly zooms — then the Message section slides up
+  // over the top, exactly like apple.com product pages.
+  (function () {
+    var pin = document.querySelector(".hero-pin");
+    var hero = pin ? pin.querySelector(".hero") : null;
+    var bg = document.querySelector(".hero-video-bg");
+    var content = document.querySelector(".hero-pin .hero .container");
+    var cue = document.querySelector(".scroll-cue");
+    if (!pin || !hero || !bg || !content) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      content.style.opacity = 1;
+      return;
+    }
+
+    var ticking = false;
+
+    function update() {
+      var pinRect = pin.getBoundingClientRect();
+      var heroHeight = hero.offsetHeight;
+      var scrollRange = pin.offsetHeight - heroHeight; // distance the hero stays pinned for
+      var scrolled = -pinRect.top;
+      var progress = scrollRange > 0 ? Math.min(Math.max(scrolled / scrollRange, 0), 1) : 0;
+
+      // Headline fades, lifts, and shrinks slightly as you scroll through the pin.
+      var contentOpacity = Math.max(1 - progress * 1.4, 0);
+      var contentLift = progress * -60;
+      var contentScale = 1 - progress * 0.08;
+      content.style.opacity = String(contentOpacity);
+      content.style.transform = "translateY(" + contentLift + "px) scale(" + contentScale + ")";
+
+      // The scroll cue fades out fast — it's only meant for the very top of the page.
+      if (cue) cue.style.opacity = String(Math.max(1 - progress * 4, 0));
+
+      // Background video slow-zooms and drifts for a cinematic feel.
+      var maxBgOffset = heroHeight * 0.1;
+      bg.style.transform = "translateY(" + (progress * maxBgOffset) + "px) scale(" + (1 + progress * 0.1) + ")";
+
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+  })();
+
+  // Scroll-triggered reveals: sections/cards fade + rise into place as they enter the
+  // viewport, the way each block on an Apple product page animates in as you scroll to it.
+  (function () {
+    var revealEls = document.querySelectorAll(".reveal");
+    if (!revealEls.length) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      revealEls.forEach(function (el) { el.classList.add("in-view"); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+    );
+
+    revealEls.forEach(function (el) { observer.observe(el); });
+  })();
+
+  // Netlify Identity: invite/password-reset emails link back here, then hand off
+  // to the login modal and on into /admin once signed in.
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function (user) {
+      if (!user) {
+        window.netlifyIdentity.on("login", function () {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
