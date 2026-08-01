@@ -440,6 +440,24 @@ blockquote {
 
 .post-preview h3 a { color: var(--deep-green); }
 
+.post-preview-image {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 18px;
+  display: block;
+}
+
+.post-header-image {
+  width: 100%;
+  max-height: 440px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 24px;
+  display: block;
+}
+
 article.post-body {
   font-family: var(--serif);
   font-size: 1.18rem;

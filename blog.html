@@ -80,8 +80,13 @@
 
         listEl.innerHTML = posts
           .map(function (post, i) {
+            var thumb = post.image
+              ? '<a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' +
+                '<img class="post-preview-image" src="' + post.image + '" alt="" loading="lazy"></a>'
+              : "";
             return (
               '<div class="post-preview reveal' + (i < 3 ? " reveal-delay-" + (i + 1) : "") + '">' +
+              thumb +
               '<span class="post-date">' + window.CultivateBlog.formatDate(post.date) + "</span>" +
               '<h3><a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' + post.title + "</a></h3>" +
               "<p>" + post.excerpt + "</p>" +

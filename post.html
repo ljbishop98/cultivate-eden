@@ -74,9 +74,14 @@
         document.title = post.title + " — Cultivate Eden";
         document.getElementById("post-title-tag").textContent = post.title + " — Cultivate Eden";
 
+        var headerImage = post.image
+          ? '<img class="post-header-image" src="' + post.image + '" alt="">'
+          : "";
+
         contentEl.innerHTML =
           '<p class="post-meta" style="margin-top: 24px;">' + window.CultivateBlog.formatDate(post.date) + "</p>" +
           "<h1>" + post.title + "</h1>" +
+          headerImage +
           '<article class="post-body" style="margin-top: 24px;">' + window.CultivateBlog.renderMarkdown(post.body) + "</article>";
       })
       .catch(function (err) {

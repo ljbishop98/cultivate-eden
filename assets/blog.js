@@ -81,6 +81,7 @@
                   slug: slugFromFilename(f.name),
                   title: parsed.data.title || f.name,
                   date: parsed.data.date || "",
+                  image: parsed.data.image || "",
                   excerpt: parsed.data.excerpt || excerptFromBody(parsed.body, 160),
                   body: parsed.body
                 };
@@ -108,6 +109,7 @@
           slug: slug,
           title: parsed.data.title || slug,
           date: parsed.data.date || "",
+          image: parsed.data.image || "",
           excerpt: parsed.data.excerpt || "",
           body: parsed.body
         };
